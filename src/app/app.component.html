@@ -1,0 +1,90 @@
+<mat-toolbar class="example-header text-white">
+  <mat-toolbar-row>
+    <a class="nav-link text-white" mat-button routerLink="/">
+      Music Land
+    </a>
+    <div class="col-md-6 justify-content-start">
+      <a class="nav-link text-white" mat-button routerLink="/">
+        Contact US <i class="far fa-envelope"></i>
+      </a>
+      <a class="nav-link text-white" mat-button routerLink="/singers/all-singers">
+        Singers
+      </a>
+      <a class="nav-link text-white" mat-button routerLink="/songs/all">
+        Songs
+      </a>
+
+      <a class="nav-link text-white" mat-button routerLink="/musicians/all-musicians">
+        Musicians
+      </a>
+      <a class="nav-link text-white" mat-button routerLink="/music/all">
+        Music
+      </a>
+    </div>
+
+    <div class="col-md-6 justify-content-end mr-2">
+      <a class="nav-link text-white" [mat-menu-trigger-for]="userMenu" mat-button >
+        User Name
+      </a>
+      <mat-menu #userMenu>
+        <button mat-menu-item routerLink="/dashboard/profile">
+          <span>Profile</span>
+          <i class="fas fa-user"></i>
+        </button>
+        <button mat-menu-item routerLink="/dashboard/profile">
+          <span>Settings</span>
+          <i class="fas fa-user-cog"></i>
+        </button>
+        <button mat-menu-item routerLink="/dashboard/profile">
+          <span>Logout</span>
+          <i class="fas fa-user"></i>
+        </button>
+      </mat-menu>
+
+      <a class="nav-link" routerLink="/dashboard/favorite-list" mat-button >
+        Favorite List <i class="material-icons">playlist_play</i>
+      </a>
+      <a class="nav-link" [mat-menu-trigger-for]="playlistMenu" mat-button >
+        Playlists <i class="material-icons">playlist_play</i>
+      </a>
+      <mat-menu #playlistMenu>
+        <button mat-menu-item routerLink="/playlists/user-playlists">
+          <span>All Playlists</span>
+        </button>
+        <button mat-menu-item >
+          <span>Playlist1</span>
+        </button>
+        <button mat-menu-item >
+          <span>Playlist2</span>
+        </button>
+        <button mat-menu-item >
+          <span>Playlist3</span>
+        </button>
+      </mat-menu>
+      <button mat-raised-button color="accent">
+        Join Chat Rooms
+      </button>
+      <a mat-button style="font-size: 23px;">
+        <i style="font-size: 23px" class="far fa-bell" [matBadge]="5"
+           matBadgeOverlap="false" matBadgePosition="above after"
+        matBadgeSize="medium" matBadgeColor="warn">
+        </i>
+      </a>
+      <a class="nav-link" routerLink="/auth/login" routerLinkActive="active" mat-button >
+        Login <i class="fas fa-sign-in-alt"></i>
+      </a>
+      <a class="nav-link" routerLink="/auth/register" routerLinkActive="active"
+         mat-button >
+        Register <i class="far fa-user-circle"></i>
+      </a>
+    </div>
+  </mat-toolbar-row>
+</mat-toolbar>
+
+<ng-container>
+  <mat-sidenav-container class="example-container">
+    <mat-sidenav-content>
+      <router-outlet></router-outlet>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</ng-container>
