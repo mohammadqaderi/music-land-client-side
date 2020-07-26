@@ -3,9 +3,10 @@ import { CommonModule } from '@angular/common';
 import {MaterialModule} from "./modules/material.module";
 import {FileModule} from "./modules/file.module";
 import {NgxModule} from "./modules/ngx.module";
+import { InvalidCredentialsComponent } from './components/invalid-credentials/invalid-credentials.component';
 
 @NgModule({
-  declarations: [],
+  declarations: [InvalidCredentialsComponent],
   imports: [
     CommonModule,
     MaterialModule,
@@ -16,6 +17,7 @@ import {NgxModule} from "./modules/ngx.module";
     MaterialModule,
     FileModule,
     NgxModule,
+    InvalidCredentialsComponent
   ]
 })
 export class SharedModule { }

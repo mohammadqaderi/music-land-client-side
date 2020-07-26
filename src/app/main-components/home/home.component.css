@@ -1,0 +1,12 @@
+.main {
+  height: 100%;
+  /* Center and scale the image nicely */
+  background: url("../../../assets/back-home.jpg") no-repeat center -400px;
+  background-size: cover;
+}
+.logo1, .logo2, .greeting {
+  font-family: 'Baloo', cursive;
+}
+.greeting {
+  font-size: 55px;
+}

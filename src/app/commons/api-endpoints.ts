@@ -27,6 +27,7 @@ export const ApiEndpoints = {
     userFavoriteList: `${prefixRoute}/favorite-lists`
   },
   PlaylistEndpoints: {
+    rootPlaylist: `${prefixRoute}/playlists`,
     userPlaylists: `${prefixRoute}/playlists/user-playlists`,
     newPlaylist: `${prefixRoute}/playlists/new-playlist`,
   },

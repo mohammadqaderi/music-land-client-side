@@ -23,8 +23,8 @@
     </div>
 
     <div class="col-md-6 justify-content-end mr-2">
-      <a class="nav-link text-white" [mat-menu-trigger-for]="userMenu" mat-button >
-        User Name
+      <a *ngIf="authService.isLoggedIn()" class="nav-link text-white" [mat-menu-trigger-for]="userMenu" mat-button >
+        {{authService.username}}
       </a>
       <mat-menu #userMenu>
         <button mat-menu-item routerLink="/dashboard/profile">
@@ -41,10 +41,10 @@
         </button>
       </mat-menu>
 
-      <a class="nav-link" routerLink="/dashboard/favorite-list" mat-button >
+      <a *ngIf="authService.isLoggedIn()" class="nav-link" routerLink="/dashboard/favorite-list" mat-button >
         Favorite List <i class="material-icons">playlist_play</i>
       </a>
-      <a class="nav-link" [mat-menu-trigger-for]="playlistMenu" mat-button >
+      <a *ngIf="authService.isLoggedIn()" class="nav-link" [mat-menu-trigger-for]="playlistMenu" mat-button >
         Playlists <i class="material-icons">playlist_play</i>
       </a>
       <mat-menu #playlistMenu>
@@ -61,19 +61,19 @@
           <span>Playlist3</span>
         </button>
       </mat-menu>
-      <button mat-raised-button color="accent">
+      <button *ngIf="authService.isLoggedIn()" mat-raised-button color="accent">
         Join Chat Rooms
       </button>
-      <a mat-button style="font-size: 23px;">
+      <a *ngIf="authService.isLoggedIn()" mat-button style="font-size: 23px;">
         <i style="font-size: 23px" class="far fa-bell" [matBadge]="5"
            matBadgeOverlap="false" matBadgePosition="above after"
         matBadgeSize="medium" matBadgeColor="warn">
         </i>
       </a>
-      <a class="nav-link" routerLink="/auth/login" routerLinkActive="active" mat-button >
+      <a *ngIf="!authService.isLoggedIn()" class="nav-link" routerLink="/auth/login" routerLinkActive="active" mat-button >
         Login <i class="fas fa-sign-in-alt"></i>
       </a>
-      <a class="nav-link" routerLink="/auth/register" routerLinkActive="active"
+      <a *ngIf="!authService.isLoggedIn()" class="nav-link" routerLink="/auth/register" routerLinkActive="active"
          mat-button >
         Register <i class="far fa-user-circle"></i>
       </a>

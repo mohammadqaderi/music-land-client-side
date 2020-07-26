@@ -6,6 +6,7 @@ import {Router} from '@angular/router';
 import {CookieService} from 'ngx-cookie-service';
 import {Observable} from 'rxjs';
 import {ApiEndpoints} from '../../commons/api-endpoints';
+import {FavoriteService} from '../user/favorite.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,17 +19,10 @@ export class AuthService {
 
   constructor(private http: HttpClient,
               private router: Router,
+              private favService: FavoriteService,
               private cookieService: CookieService) {
   }
 
-  /*
-  *
-   try {
-
-    }catch (error) {
-      console.error(error);
-    }
-  * */
 
   // registration
   registerUser(registrationInfo): Observable<void> {
@@ -45,8 +39,7 @@ export class AuthService {
     this.pUserData().subscribe((uData: any) => {
       this.currentUser = uData.user;
       this.profile = uData.profile;
-
-      // we will prepare favorite behavior subject later
+      this.favService.favoriteList.next(uData.favorite);
       this.username = `${uData.profile.firstName} ${uData.profile.lastName}`;
     });
   }
@@ -68,9 +61,10 @@ export class AuthService {
     }
   }
 
-  login(authCredentialsDto: any) {
+  login(authCredentialsDto: any): Observable<{accessToken: string, user: User}> {
     try {
-      this.http.post(ApiEndpoints.AuthEndpoints.loginUser, authCredentialsDto);
+      return this.http.post<{accessToken: string, user: User}>
+      (ApiEndpoints.AuthEndpoints.loginUser, authCredentialsDto);
     } catch (error) {
       console.error(error);
     }
