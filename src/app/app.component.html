@@ -35,7 +35,7 @@
           <span>Settings</span>
           <i class="fas fa-user-cog"></i>
         </button>
-        <button mat-menu-item routerLink="/dashboard/profile">
+        <button (click)="logout()" mat-menu-item routerLink="/dashboard/profile">
           <span>Logout</span>
           <i class="fas fa-user"></i>
         </button>

@@ -4,6 +4,10 @@ import {LoginComponent} from './login/login.component';
 import {RegisterComponent} from './register/register.component';
 import {VerifyEmailComponent} from './verify-email/verify-email.component';
 import {ResetPasswordComponent} from './reset-password/reset-password.component';
+import {GoogleSuccessComponent} from './google-success/google-success.component';
+import {GoogleFailureComponent} from './google-failure/google-failure.component';
+import {FacebookSuccessComponent} from './facebook-success/facebook-success.component';
+import {FacebookFailureComponent} from './facebook-failure/facebook-failure.component';
 
 const routes: Routes = [
   {
@@ -16,6 +20,22 @@ const routes: Routes = [
       {
         path: 'register',
         component: RegisterComponent
+      },
+      {
+        path: 'google-success/:userId/:accessToken',
+        component: GoogleSuccessComponent
+      },
+      {
+        path: 'google-failure',
+        component: GoogleFailureComponent
+      },
+      {
+        path: 'facebook-success/:userId/:accessToken',
+        component: FacebookSuccessComponent
+      },
+      {
+        path: 'facebook-failure',
+        component: FacebookFailureComponent
       },
       {
         path: 'verify-email/:emailToken',

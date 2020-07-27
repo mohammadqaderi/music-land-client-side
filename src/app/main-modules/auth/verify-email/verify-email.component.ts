@@ -35,6 +35,7 @@ export class VerifyEmailComponent implements OnInit {
     this.authService.verifyEmail(this.token)
       .subscribe((res: { isFullyVerified: boolean, user: User }) => {
         if (res.isFullyVerified) {
+          console.log(res.user);
           this.authService.currentUser = res.user;
           this.helperService.openSnackbar('Your Email is fully verified',
             'Good');

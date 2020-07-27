@@ -55,15 +55,15 @@ export class AuthService {
   // just for validating user name for register users
   checkUserName(username: string): Observable<boolean> {
     try {
-      return this.http.post<boolean>(ApiEndpoints.AuthEndpoints.checkUserName, {username});
+      return this.http.get<boolean>(`${ApiEndpoints.AuthEndpoints.checkUserName}/${username}`);
     } catch (error) {
       console.error(error);
     }
   }
 
-  login(authCredentialsDto: any): Observable<{accessToken: string, user: User}> {
+  login(authCredentialsDto: any): Observable<{ accessToken: string, user: User }> {
     try {
-      return this.http.post<{accessToken: string, user: User}>
+      return this.http.post<{ accessToken: string, user: User }>
       (ApiEndpoints.AuthEndpoints.loginUser, authCredentialsDto);
     } catch (error) {
       console.error(error);
@@ -117,12 +117,20 @@ export class AuthService {
   }
 
   isLoggedIn() {
-    return this.cookieService.check('token')
-      && this.cookieService.check('user');
+    return this.cookieService.check('token') &&
+      this.cookieService.get('user');
   }
 
   getToken() {
     return this.cookieService.get('token');
+  }
+
+  getUserById(id: number): Observable<User> {
+    try {
+      return this.http.get<User>(`${ApiEndpoints.AuthEndpoints.users}/${id}`);
+    } catch (error) {
+      console.log(error);
+    }
   }
 
   // show alert to the user if his account is not verified yet.

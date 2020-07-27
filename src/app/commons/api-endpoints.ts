@@ -14,6 +14,7 @@ export const ApiEndpoints = {
     emailForgotPassword: `${prefixRoute}/auth/email/forgot-password`,
     emailResetPassword: `${prefixRoute}/auth/email/reset-password`,
     userMainData: `${prefixRoute}/auth/user-main-data`,
+    users: `${prefixRoute}/auth/users`,
     checkUserName: `${prefixRoute}/auth/check-username`,
   },
   ProfileEndpoints: {
