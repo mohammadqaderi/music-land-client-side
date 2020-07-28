@@ -1,0 +1,52 @@
+<div class="container mt-1" *ngIf="authService.showAccountVerificationAlert()">
+  <div class="row justify-content-center bg-danger text-white">
+    <div class="col-md-9">
+      <p class="lead">
+        Your Account Is Not Verified Yet
+        <button mat-raised-button color="primary"
+                (click)="sendAccountVerification()">
+          Verify Account
+        </button>
+      </p>
+    </div>
+  </div>
+</div>
+
+<div class="container mt-2 border-dark">
+  <div class="row bg-primary">
+    <div class="col-md-10 justify-content-start">
+      <h3 style="font-family: 'Anton', sans-serif">
+        Activated Account
+      </h3>
+    </div>
+    <div class="col-md-2 justify-content-end">
+      <mat-slide-toggle color="primary"
+                        [checked]="isAccountVerified()" disabled></mat-slide-toggle>
+    </div>
+  </div>
+</div>
+
+<ng-template #requestResult>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">
+      Request has been sent successfully
+    </h4>
+    <button aria-label="Close" class="close pull-left">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-center">
+    <div class="alert alert-danger" role="alert">
+      <h3 style="font-family: 'Anton', sans-serif">
+        Checkout your email inbox to complete the verification process
+        of your account
+      </h3>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button class="btn btn-danger pull-right"
+            (click)="helperService.hideModal()">Close
+    </button>
+  </div>
+
+</ng-template>

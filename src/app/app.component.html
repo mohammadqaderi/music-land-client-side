@@ -23,15 +23,15 @@
     </div>
 
     <div class="col-md-6 justify-content-end mr-2">
-      <a *ngIf="authService.isLoggedIn()" class="nav-link text-white" [mat-menu-trigger-for]="userMenu" mat-button >
-        {{authService.username}}
+      <a *ngIf="authService.isLoggedIn()" class="nav-link text-white" [mat-menu-trigger-for]="userMenu" mat-button>
+        {{Username}}
       </a>
       <mat-menu #userMenu>
         <button mat-menu-item routerLink="/dashboard/profile">
           <span>Profile</span>
           <i class="fas fa-user"></i>
         </button>
-        <button mat-menu-item routerLink="/dashboard/profile">
+        <button mat-menu-item routerLink="/dashboard/settings">
           <span>Settings</span>
           <i class="fas fa-user-cog"></i>
         </button>
@@ -41,23 +41,23 @@
         </button>
       </mat-menu>
 
-      <a *ngIf="authService.isLoggedIn()" class="nav-link" routerLink="/dashboard/favorite-list" mat-button >
+      <a *ngIf="authService.isLoggedIn()" class="nav-link" routerLink="/dashboard/favorite-list" mat-button>
         Favorite List <i class="material-icons">playlist_play</i>
       </a>
-      <a *ngIf="authService.isLoggedIn()" class="nav-link" [mat-menu-trigger-for]="playlistMenu" mat-button >
+      <a *ngIf="authService.isLoggedIn()" class="nav-link" [mat-menu-trigger-for]="playlistMenu" mat-button>
         Playlists <i class="material-icons">playlist_play</i>
       </a>
       <mat-menu #playlistMenu>
         <button mat-menu-item routerLink="/playlists/user-playlists">
           <span>All Playlists</span>
         </button>
-        <button mat-menu-item >
+        <button mat-menu-item>
           <span>Playlist1</span>
         </button>
-        <button mat-menu-item >
+        <button mat-menu-item>
           <span>Playlist2</span>
         </button>
-        <button mat-menu-item >
+        <button mat-menu-item>
           <span>Playlist3</span>
         </button>
       </mat-menu>
@@ -67,14 +67,15 @@
       <a *ngIf="authService.isLoggedIn()" mat-button style="font-size: 23px;">
         <i style="font-size: 23px" class="far fa-bell" [matBadge]="5"
            matBadgeOverlap="false" matBadgePosition="above after"
-        matBadgeSize="medium" matBadgeColor="warn">
+           matBadgeSize="medium" matBadgeColor="warn">
         </i>
       </a>
-      <a *ngIf="!authService.isLoggedIn()" class="nav-link" routerLink="/auth/login" routerLinkActive="active" mat-button >
+      <a *ngIf="!authService.isLoggedIn()" class="nav-link" routerLink="/auth/login" routerLinkActive="active"
+         mat-button>
         Login <i class="fas fa-sign-in-alt"></i>
       </a>
       <a *ngIf="!authService.isLoggedIn()" class="nav-link" routerLink="/auth/register" routerLinkActive="active"
-         mat-button >
+         mat-button>
         Register <i class="far fa-user-circle"></i>
       </a>
     </div>

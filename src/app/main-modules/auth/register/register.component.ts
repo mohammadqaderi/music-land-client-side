@@ -21,8 +21,7 @@ export class RegisterComponent implements OnInit {
 
   constructor(private fb: FormBuilder,
               private authService: AuthService,
-              private router: Router,
-              private cookieService: CookieService) {
+              private router: Router) {
     if (authService.isLoggedIn()) {
       router.navigate(['/home']);
     }
@@ -80,8 +79,7 @@ export class RegisterComponent implements OnInit {
       .subscribe(() => {
         this.authService.login(emailLoginDto)
           .subscribe((data: { accessToken: string, user: User }) => {
-            this.cookieService.set('token', data.accessToken);
-            this.cookieService.set('user', JSON.stringify(data.user));
+            localStorage.setItem('token', data.accessToken);
             this.authService.prepareUserData();
             this.router.navigate(['/home']);
           });

@@ -1,5 +1,5 @@
-import {ArtistType} from "../../commons/enums/artist-type.enum";
-import {Gender} from "../../commons/enums/gender.enum";
+import {ArtistType} from '../../commons/enums/artist-type.enum';
+import {Gender} from '../../commons/enums/gender.enum';
 
 export class ArtistFilter {
   limit: number;

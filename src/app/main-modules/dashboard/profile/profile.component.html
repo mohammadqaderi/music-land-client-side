@@ -1,0 +1,125 @@
+<div class="container mt-3 mb-4" *ngIf="profile">
+  <div class="row">
+    <div class="col-md-5 border border-secondary p-2">
+      <img [src]="profile.image" height="200px" alt="">
+      <mat-divider *ngIf="profile.image"></mat-divider>
+      <div class="custom-file">
+        <input type="file"
+               class="custom-file-input"
+               ng2FileSelect [uploader]="uploader"
+               (change)="onFileSelect($event)"
+               id="image" name="image">
+        <label for="image" class="custom-file-label">
+          You have chosen: {{selectedImage}}
+        </label>
+      </div>
+      <div class="row mt-2 mb-2">
+        <div class="col-md-auto">
+          <button *ngIf="!profile.image" [disabled]="!formData.get('image')"
+                  (click)="uploadProfileImage()" class="btn btn-outline-primary">
+            Upload Image
+          </button>
+        </div>
+        <div class="col-md-auto">
+          <button *ngIf="profile.image" [disabled]="!formData.get('image')"
+                  (click)="changeProfileImage()" class="btn btn-outline-warning">
+            Change Image
+          </button>
+        </div>
+        <div class="col-md-auto">
+          <button *ngIf="profile.image"
+                  (click)="deleteProfileImage()" class="btn btn-outline-danger">
+            Delete Image
+          </button>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-7 border border-secondary p-2">
+      <form [formGroup]="updateProfileDto" (ngSubmit)="updateUserProfile()">
+        <div class="row mt-2 mb-2">
+          <div class="col-md-4">
+            <mat-form-field class="ml-1">
+              <input id="firstName" formControlName="firstName" aria-label="First Name" type="text" matInput
+                     placeholder="First Name"/>
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field class="ml-2">
+              <input type="text" id="lastName" formControlName="lastName" matInput placeholder="Last Name"
+                     aria-label="Last Name"/>
+            </mat-form-field>
+          </div>
+        </div>
+        <mat-divider></mat-divider>
+
+        <div class="row mt-2 mb-2">
+          <div class="col-md-4">
+            <mat-form-field class="ml-2">
+              <input type="text" id="gender" formControlName="gender" matInput aria-label="Gender"
+                     placeholder="Gender"
+              />
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field>
+              <input type="text" id="age" formControlName="age" aria-label="Age" matInput placeholder="Age"
+              />
+            </mat-form-field>
+          </div>
+        </div>
+        <mat-divider></mat-divider>
+
+        <div class="row mt-2 mb-2">
+          <div class="col-md-4">
+            <mat-form-field class="ml-3">
+              <input type="text" id="country" aria-label="Country" formControlName="country" matInput
+                     placeholder="Country"
+              />
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field class="ml-1">
+              <input type="text" id="city" formControlName="city" matInput aria-label="City" placeholder="City"
+              />
+            </mat-form-field>
+          </div>
+        </div>
+        <mat-divider></mat-divider>
+
+        <div class="row mt-2 mb-2">
+          <div class="col-md-4">
+            <mat-form-field class="ml-2">
+              <input type="text" id="address" formControlName="address" matInput aria-label="Address"
+                     placeholder="Address"
+              />
+            </mat-form-field>
+          </div>
+          <div class="col-md-4">
+            <mat-form-field class="ml-2">
+              <input type="text" id="phone" formControlName="phone" matInput aria-label="Phone"
+                     placeholder="Phone"
+              />
+            </mat-form-field>
+          </div>
+        </div>
+        <mat-divider></mat-divider>
+        <div class="row justify-content-center">
+          <button class="btn btn-success"
+                  style="width: 200px" type="submit">
+            Update
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+</div>
+<ngx-spinner
+  bdColor="rgba(51,51,51,0.8)"
+  size="large"
+  color="#9344d4d"
+  type="ball-scale-multiple">
+  <p style="font-size: 20px; color: white">
+    Please Wait...
+  </p>
+</ngx-spinner>

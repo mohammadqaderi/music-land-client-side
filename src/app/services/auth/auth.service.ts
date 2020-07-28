@@ -4,7 +4,7 @@ import {User} from '../../models/user/user';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {CookieService} from 'ngx-cookie-service';
-import {Observable} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {ApiEndpoints} from '../../commons/api-endpoints';
 import {FavoriteService} from '../user/favorite.service';
 
@@ -14,13 +14,12 @@ import {FavoriteService} from '../user/favorite.service';
 export class AuthService {
 
   public username: string;
-  public profile: Profile;
-  public currentUser: User;
+  public profile: BehaviorSubject<Profile> = new BehaviorSubject<Profile>(null);
+  public currentUser: BehaviorSubject<User> = new BehaviorSubject<User>(null);
 
   constructor(private http: HttpClient,
               private router: Router,
-              private favService: FavoriteService,
-              private cookieService: CookieService) {
+              private favService: FavoriteService) {
   }
 
 
@@ -36,12 +35,20 @@ export class AuthService {
   // user data
 
   prepareUserData() {
-    this.pUserData().subscribe((uData: any) => {
-      this.currentUser = uData.user;
-      this.profile = uData.profile;
-      this.favService.favoriteList.next(uData.favorite);
-      this.username = `${uData.profile.firstName} ${uData.profile.lastName}`;
-    });
+    if (!localStorage.getItem('user') && !localStorage.getItem('profile')
+      && !localStorage.getItem('favorite-list')) {
+      this.pUserData().subscribe((uData: any) => {
+        this.currentUser.next(uData.user);
+        this.profile.next(uData.profile);
+        this.favService.favoriteList.next(uData.favorite);
+        localStorage.setItem('user', JSON.stringify(uData.user));
+        localStorage.setItem('profile', JSON.stringify(uData.profile));
+        localStorage.setItem('favorite-list', JSON.stringify(uData.favorite));
+        localStorage.setItem('username',
+          `${uData.profile.firstName} ${uData.profile.lastName}`);
+      });
+    }
+
   }
 
   pUserData() {
@@ -75,7 +82,7 @@ export class AuthService {
   sendEmailVerification(email: string) {
     try {
       const url = `${ApiEndpoints.AuthEndpoints.sendEmailVerification}/${email}`;
-      this.http.get(url);
+      return this.http.get(url);
     } catch (error) {
       console.error(error);
     }
@@ -111,18 +118,17 @@ export class AuthService {
   }
 
   userLogout() {
-    this.cookieService.delete('token');
-    this.cookieService.delete('user');
+    localStorage.clear();
     this.router.navigate(['/auth/login']);
   }
 
   isLoggedIn() {
-    return this.cookieService.check('token') &&
-      this.cookieService.get('user');
+    return localStorage.getItem('token') &&
+      localStorage.getItem('user');
   }
 
   getToken() {
-    return this.cookieService.get('token');
+    return localStorage.getItem('token');
   }
 
   getUserById(id: number): Observable<User> {
@@ -135,7 +141,8 @@ export class AuthService {
 
   // show alert to the user if his account is not verified yet.
   showAccountVerificationAlert() {
-    return this.isLoggedIn() && this.currentUser && !this.currentUser.isEmailVerified;
+    return this.isLoggedIn() && this.currentUser &&
+      !this.currentUser.getValue().isEmailVerified;
   }
 
 }

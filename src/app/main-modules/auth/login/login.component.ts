@@ -26,7 +26,6 @@ export class LoginComponent implements OnInit {
               private fb: FormBuilder,
               private modalService: BsModalService,
               private dialog: MatDialog,
-              private cookieService: CookieService,
               private helperService: HelperService) {
     if (authService.isLoggedIn()) {
       router.navigate(['/home']);
@@ -36,11 +35,11 @@ export class LoginComponent implements OnInit {
   userLogin() {
     this.authService.login(this.emailLoginDto.value)
       .subscribe((data: { accessToken: string, user: User }) => {
-        this.cookieService.set('token', data.accessToken);
-        this.cookieService.set('user', JSON.stringify(data.user));
+        localStorage.setItem('token', data.accessToken);
         this.authService.prepareUserData();
         this.router.navigate(['/home']);
-      }, error => {
+      }, (error: any) => {
+        console.log(error);
         this.openModal(this.invalidCredentials);
       });
   }

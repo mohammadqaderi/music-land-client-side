@@ -20,5 +20,9 @@ export class AppComponent implements OnInit {
     this.authService.userLogout();
   }
 
+  get Username(){
+    return localStorage.getItem('username');
+  }
+
 
 }

@@ -15,7 +15,22 @@ const routes: Routes = [
   {
     path: 'auth',
     loadChildren: () => import('./main-modules/auth/auth.module').then(a => a.AuthModule)
-  }
+  },
+  {
+    path: 'dashboard',
+    loadChildren: () => import('./main-modules/dashboard/dashboard.module')
+      .then(d => d.DashboardModule)
+  },
+  {
+    path: 'singers',
+    loadChildren: () => import('./main-modules/singer/singer.module').
+    then(s => s.SingerModule)
+  },
+  {
+    path: 'musicians',
+    loadChildren: () => import('./main-modules/musician/musician.module').
+    then(m => m.MusicianModule)
+  },
 ];
 
 @NgModule({

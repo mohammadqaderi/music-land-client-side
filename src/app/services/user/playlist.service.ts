@@ -24,7 +24,7 @@ export class PlaylistService {
   getCurrentPlaylists(): Playlist[] {
     try {
       if(this.authService.isLoggedIn()){
-        return this.authService.currentUser.playlists;
+        return this.authService.currentUser.getValue().playlists;
       }
     } catch (error) {
       console.error(error);
