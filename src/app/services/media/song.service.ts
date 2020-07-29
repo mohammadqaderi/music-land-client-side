@@ -87,10 +87,9 @@ export class SongService {
     }
   }
 
-  pushToFavoriteList(songId: number): Observable<Track> {
+  pushToFavoriteList(songId: number, favoriteListId: number): Observable<Track> {
     try {
-      const url = `${ApiEndpoints.SongEndpoints.allSongs}
-      /${songId}/save-to-favorite-list/${this.favService.favoriteList.getValue().id}`;
+      const url = `${ApiEndpoints.SongEndpoints.allSongs}/${songId}/save-to-favorite-list/${favoriteListId}`;
       return this.http.post<Track>(url, null);
     } catch (error) {
       console.error(error);

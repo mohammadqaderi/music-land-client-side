@@ -3,10 +3,8 @@ import {Profile} from '../../models/user/profile';
 import {User} from '../../models/user/user';
 import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
-import {CookieService} from 'ngx-cookie-service';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {ApiEndpoints} from '../../commons/api-endpoints';
-import {FavoriteService} from '../user/favorite.service';
 
 @Injectable({
   providedIn: 'root'
@@ -18,8 +16,7 @@ export class AuthService {
   public currentUser: BehaviorSubject<User> = new BehaviorSubject<User>(null);
 
   constructor(private http: HttpClient,
-              private router: Router,
-              private favService: FavoriteService) {
+              private router: Router) {
   }
 
 
@@ -35,20 +32,14 @@ export class AuthService {
   // user data
 
   prepareUserData() {
-    if (!localStorage.getItem('user') && !localStorage.getItem('profile')
-      && !localStorage.getItem('favorite-list')) {
       this.pUserData().subscribe((uData: any) => {
         this.currentUser.next(uData.user);
         this.profile.next(uData.profile);
-        this.favService.favoriteList.next(uData.favorite);
-        localStorage.setItem('user', JSON.stringify(uData.user));
-        localStorage.setItem('profile', JSON.stringify(uData.profile));
-        localStorage.setItem('favorite-list', JSON.stringify(uData.favorite));
+        localStorage.setItem('user', uData.user);
+        localStorage.setItem('favoriteListId', uData.favorite.id.toString());
         localStorage.setItem('username',
           `${uData.profile.firstName} ${uData.profile.lastName}`);
       });
-    }
-
   }
 
   pUserData() {

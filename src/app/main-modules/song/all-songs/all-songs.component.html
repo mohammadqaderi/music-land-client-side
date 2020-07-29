@@ -1,0 +1,153 @@
+<ng-container>
+  <mat-sidenav-container
+    class="example-container">
+    <mat-sidenav #sidenav mode="side"
+                 opened class="example-sidenav justify-content-center text-center"
+                 [fixedInViewport]="false">
+      <div class="row mt-2 justify-content-center text-center mb-2">
+        <button (click)="sidenav.close()"
+                mat-raised-button color="accent" style="width: 140px">
+          Hide Filter Panel
+        </button>
+      </div>
+      <div class="row mt-2 justify-content-center text-center mb-2">
+        Filter Songs By Your Choice
+      </div>
+      <mat-divider></mat-divider>
+      <div class="row mt-2 justify-content-center text-center mb-2">
+        <mat-form-field>
+          <mat-label>
+            Type
+          </mat-label>
+          <mat-select name="type" [(ngModel)]="songFilter.type">
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let type of songData.songTypes"
+                        [value]="type">
+              {{type}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="row mt-1 justify-content-center text-center mb-2">
+        <mat-form-field>
+          <mat-label>
+            Language
+          </mat-label>
+          <mat-select name="language" [(ngModel)]="songFilter.language">
+            <mat-option>None</mat-option>
+            <mat-option *ngFor="let language of songData.songLanguages"
+                        [value]="language">
+              {{language}}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+      <div class="row justify-content-center text-center mb-2">
+        <mat-form-field>
+          <mat-label>
+            Rate
+          </mat-label>
+          <input type="number" matInput name="rate" [(ngModel)]="songFilter.rate">
+        </mat-form-field>
+      </div>
+      <div class="row justify-content-center text-center mb-1">
+        <button mat-raised-button color="warn"
+                style="width: 130px" (click)="getFilteredSongs()">
+          Filter <i class="fa fa-filter"></i>
+        </button>
+      </div>
+    </mat-sidenav>
+    <mat-sidenav-content>
+      <div class="row justify-content-between m-3">
+        <div class="col-md-4">
+          <button *ngIf="!sidenav.opened"
+                  (click)="sidenav.open()"
+                  mat-raised-button color="accent" style="width: 170px">
+            Filter Songs <i class="fa fa-filter"></i>
+          </button>
+        </div>
+
+        <div class="col-md-8">
+          <mat-form-field style="width: 450px">
+            <mat-label>Search For Song</mat-label>
+            <input type="text" name="searchTerm" matInput [(ngModel)]="searchTerm"
+                   placeholder="Search For Song">
+          </mat-form-field>
+        </div>
+      </div>
+      <div class="row m-3" *ngIf="songs">
+        <div class="col-md-4 mb-2 mt-2"
+             *ngFor="let song of songs | songsFilter: searchTerm">
+          <div>
+            <mat-toolbar>
+              <mat-toolbar-row>
+                <img [src]="song.tempImage" class="avatar"
+                     style="max-height: 70px; max-width: 70px" alt="">
+                <span class="example-spacer"></span>
+                <div *ngIf="authService.isLoggedIn()">
+                  <button mat-icon-button [matMenuTriggerFor]="menu">
+                    <mat-icon>more_vert</mat-icon>
+                  </button>
+                  <mat-menu #menu>
+                    <button mat-menu-item [matMenuTriggerFor]="playlistMenu">
+                      Add To Playlist
+                    </button>
+                    <mat-menu #playlistMenu>
+                      <div *ngFor="let list of getUserPlaylists()">
+                        <button mat-menu-item
+                                *ngIf="!isSongAddedToPlaylist(song,list.id)"
+                        (click)="addSongToPlaylist(song, list)">
+                          {{list.name}}
+                        </button>
+                      </div>
+                    </mat-menu>
+                    <button *ngIf="!isSongAddedToFavoriteList(song)"
+                            (click)="addSongToFavoriteList(song)" mat-menu-item>
+                      Add To Favorite List
+                    </button>
+                    <button
+                      *ngIf="isSongAddedToFavoriteList(song)"
+                      (click)="removeSongFromFavoriteList(song)" mat-menu-item>
+                      Remove From Favorite List
+                    </button>
+                  </mat-menu>
+                </div>
+              </mat-toolbar-row>
+              <mat-toolbar-row>
+                <h4 style="font-family: 'Anton', sans-serif">
+                  {{song.artist}} &nbsp; {{song.name}}
+                </h4>
+              </mat-toolbar-row>
+            </mat-toolbar>
+            <mat-basic-audio-player
+              [audioUrl]="song.source"
+              [title]="song.name"
+              [displayTitle]="true"
+              [autoPlay]="false"
+              [displayVolumeControls]="true"></mat-basic-audio-player>
+            <mat-toolbar color="warn">
+              <ngx-star-rating></ngx-star-rating>
+            </mat-toolbar>
+          </div>
+        </div>
+      </div>
+      <div class="row mb-1 justify-content-center">
+        <button mat-raised-button color="warn"
+                (click)="getLimitedSongs()"
+                style="width: auto">
+          Load More &nbsp; &nbsp;
+          <span *ngIf="showSpinner" class="spinner-border text-primary" role="status"></span>
+        </button>
+      </div>
+      <ngx-spinner
+        bdColor="rgba(51,51,51,0.8)"
+        size="large"
+        color="#9344d4d"
+        type="ball-scale-multiple">
+        <p style="font-size: 20px; color: white">
+          {{state}}
+        </p>
+      </ngx-spinner>
+    </mat-sidenav-content>
+  </mat-sidenav-container>
+</ng-container>

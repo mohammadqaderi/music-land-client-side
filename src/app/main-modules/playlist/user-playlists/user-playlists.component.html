@@ -1,0 +1,215 @@
+<ng-template #newList>
+  <div class="modal-header">
+    <h4 style="font-family: 'Anton', sans-serif" class="modal-title  ">
+      Create New Playlist
+    </h4>
+    <button type="button" (click)="helperService.hideModal()" class="close pull-right" aria-label="Close"
+    ><span aria-hidden="true">&times;</span></button>
+  </div>
+  <div class="modal-body text-center">
+    <div class="modal-body text-center">
+      <div class="row">
+        <div class="col-md-8">
+          <mat-form-field class="example-full-width">
+            <mat-label>Name</mat-label>
+            <input matInput placeholder="Playlist Name" type="text" name="name"
+                   [(ngModel)]="createPlaylistDto.name" required
+            >
+          </mat-form-field>
+        </div>
+        <div class="col-md-4 mt-2">
+          <button [disabled]="!createPlaylistDto.name" (click)="createNewPlaylist()" style="width: 120px;"
+                  mat-raised-button color="primary" type="button">
+            Create
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer">
+    <button type="button" class="btn btn-outline-danger pull-right"
+            (click)="helperService.hideModal()">
+      Close
+    </button>
+  </div>
+</ng-template>
+
+
+<div class="container my-3 mb-2" *ngIf="playlists">
+  <div class="row mt-2 mb-2 justify-content-between header-cont">
+    <div class="col-md-6">
+      <h2 style="font-family: 'Anton', sans-serif" class="text-center">Playlist Counts: {{playlists.length}}</h2>
+    </div>
+    <div class="col-md-6 mt-1">
+      <div class="row">
+        <h2 style="font-family: 'Anton', sans-serif"> New Playlist
+        </h2>
+        <button (click)="helperService.openModal(newList)" class="ml-2" mat-mini-fab color="warn" matTooltip="New Playlist"
+                matTooltipPosition="below">
+          <i class="fas fa-plus"></i>
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="row mt-2 mb-2 justify-content-between">
+    <div class="col-md-6">
+      <mat-accordion *ngFor="let list of playlists; let i = index">
+        <mat-toolbar color="primary">
+          <mat-toolbar-row>
+            <button (click)="changePlaylist(list)" mat-raised-button
+                    matTooltip="Select Playlist"
+                    matTooltipPosition="below">
+              <i class="fas fa-play"></i>
+            </button>
+            <span class="example-spacer"></span>
+            <button (click)="prepareCurrentValue(list); helperService.openModal(updateList)" mat-raised-button
+                    matTooltip="Edit Playlist"
+                    matTooltipPosition="below">
+              <i class="far fa-edit"></i>
+            </button>
+            <ng-template #updateList>
+              <div class="modal-header">
+                <h4 style="font-family: 'Anton', sans-serif" class="modal-title  ">
+                  You're going to update:  {{list.name}}
+                </h4>
+                <button type="button" (click)="helperService.hideModal()" class="close pull-right" aria-label="Close"
+                ><span aria-hidden="true">&times;</span></button>
+              </div>
+              <div class="modal-body text-center">
+                <div class="modal-body ">
+                  <div class="row">
+                    <div class="col-md-8">
+                      <mat-form-field class="example-full-width">
+                        <mat-label>Name</mat-label>
+                        <input matInput placeholder="Playlist Name" type="text" name="name"
+                               [(ngModel)]="updatePlaylistDto.name"
+                        >
+                      </mat-form-field>
+                    </div>
+                    <div class="col-md-4 mt-2">
+                      <button (click)="updatePlaylist(list)" style="width: 120px;" mat-raised-button color="primary"
+                              type="button">
+                        Update
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline-danger pull-right"
+                        (click)="helperService.hideModal()">
+                  Close
+                </button>
+              </div>
+            </ng-template>
+            <button (click)="helperService.openModal(clearList)" mat-raised-button
+                    matTooltip="Clear Playlist"
+                    matTooltipPosition="below"
+                    class="ml-1">
+              <i class="fas fa-broom"></i>
+            </button>
+            <ng-template #clearList>
+              <div class="modal-header">
+                <h4 style="font-family: 'Anton', sans-serif" class="modal-title pull-left text-danger">
+                  Attention
+                </h4>
+                <button type="button" (click)="helperService.hideModal()" class="close pull-right" aria-label="Close"
+                ><span aria-hidden="true">&times;</span></button>
+              </div>
+              <div class="modal-body text-center">
+                <div class="modal-body text-center">
+                  <div class="row">
+                    <div class="col-md-8">
+                      <h3 style="font-family: 'Anton', sans-serif" class="text-danger">
+                        You're going to clear all tracks from this list!!
+                      </h3>
+                    </div>
+                    <div class="col-md-4">
+                      <button (click)="clearPlaylist(list)" class="btn btn-outline-danger pull-right">
+                        Clear
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline-danger pull-right"
+                        (click)="helperService.hideModal()">
+                  Close
+                </button>
+              </div>
+            </ng-template>
+
+            <button (click)="helperService.openModal(deleteList)" matTooltip="Delete Playlist"
+                    matTooltipPosition="below"
+                    class="ml-1"
+                    mat-raised-button>
+              <i class="fas fa-trash"></i>
+            </button>
+            <ng-template #deleteList>
+              <div class="modal-header">
+                <h4 style="font-family: 'Anton', sans-serif" class="modal-title pull-left text-danger">
+                  Attention
+                </h4>
+                <button type="button" (click)="helperService.hideModal()" class="close pull-right" aria-label="Close"
+                ><span aria-hidden="true">&times;</span></button>
+              </div>
+              <div class="modal-body text-center">
+                <div class="modal-body text-center">
+                  <div class="row">
+                    <div class="col-md-8">
+                      <h3 style="font-family: 'Anton', sans-serif" class="text-danger">
+                        This list will removed forever!!
+                      </h3>
+                    </div>
+                    <div class="col-md-4">
+                      <button (click)="deletePlaylist(list)" class="btn btn-outline-danger pull-right">
+                        Delete
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div class="modal-footer">
+                <button type="button" class="btn btn-outline-danger pull-right"
+                        (click)="helperService.hideModal()">
+                  Close
+                </button>
+              </div>
+            </ng-template>
+
+          </mat-toolbar-row>
+        </mat-toolbar>
+        <mat-expansion-panel class="mb-1">
+          <mat-expansion-panel-header>
+            <h3 style="font-family: 'Anton', sans-serif">
+              {{list.name}}
+            </h3>
+          </mat-expansion-panel-header>
+          <mat-toolbar *ngFor="let track of list.tracks">
+            <mat-toolbar-row>
+              <p class="lead">
+                {{track.title}}
+              </p>
+              <span class="example-spacer">
+                              <button (click)="removeTrack(list,track.id)" matTooltip="Remove Track"
+                                      matTooltipPosition="below"
+                                      class="pull-right float-right"
+                                      mat-raised-button>
+                Remove &nbsp; <i class="fas fa-trash"></i>
+              </button>
+              </span>
+
+            </mat-toolbar-row>
+          </mat-toolbar>
+        </mat-expansion-panel>
+      </mat-accordion>
+    </div>
+    <div class="col-md-6 " *ngIf="playlists">
+      <app-playlist-details #playlistDetailsComponent [playlist]="playlists[0]"
+      ></app-playlist-details>
+    </div>
+  </div>
+</div>

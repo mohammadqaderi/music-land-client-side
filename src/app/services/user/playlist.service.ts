@@ -1,7 +1,7 @@
 import {Injectable} from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import {AuthService} from '../auth/auth.service';
-import {Observable} from 'rxjs';
+import {BehaviorSubject, Observable} from 'rxjs';
 import {Playlist} from '../../models/media/playlist';
 import {ApiEndpoints} from '../../commons/api-endpoints';
 
@@ -9,8 +9,11 @@ import {ApiEndpoints} from '../../commons/api-endpoints';
   providedIn: 'root'
 })
 export class PlaylistService {
-
+  public playlists: BehaviorSubject<Playlist[]> = new BehaviorSubject<Playlist[]>(null);
   constructor(private http: HttpClient, private authService: AuthService) {
+    this.getAllUserPlaylists().subscribe((userPlaylists: Playlist[]) =>{
+      this.playlists.next(userPlaylists);
+    })
   }
 
   getAllUserPlaylists(): Observable<Playlist[]> {
@@ -22,13 +25,7 @@ export class PlaylistService {
   }
 
   getCurrentPlaylists(): Playlist[] {
-    try {
-      if(this.authService.isLoggedIn()){
-        return this.authService.currentUser.getValue().playlists;
-      }
-    } catch (error) {
-      console.error(error);
-    }
+    return this.playlists.getValue();
   }
 
   getPlaylistById(id: number): Observable<Playlist> {
@@ -52,8 +49,7 @@ export class PlaylistService {
   updatePlaylist(id: number, playlistDto: any): Observable<Playlist> {
     try {
       return this.http.put
-        < Playlist > (`${ApiEndpoints.PlaylistEndpoints.rootPlaylist}
-        /${id}/update-playlist`, playlistDto);
+        < Playlist > (`${ApiEndpoints.PlaylistEndpoints.rootPlaylist}/${id}/update-playlist`, playlistDto);
     } catch (error) {
       console.error(error);
     }
@@ -62,8 +58,7 @@ export class PlaylistService {
   deletePlaylist(id: number): Observable<any> {
     try {
       return this.http.delete
-      (`${ApiEndpoints.PlaylistEndpoints.rootPlaylist}
-        /${id}/delete-playlist`);
+      (`${ApiEndpoints.PlaylistEndpoints.rootPlaylist}/${id}/delete-playlist`);
     } catch (error) {
       console.error(error);
     }
@@ -71,8 +66,7 @@ export class PlaylistService {
 
   clearPlaylistContent(id: number): Observable<Playlist> {
     try {
-      return this.http.delete<Playlist>(`${ApiEndpoints.PlaylistEndpoints.rootPlaylist}
-     /${id}/clear-playlist`);
+      return this.http.delete<Playlist>(`${ApiEndpoints.PlaylistEndpoints.rootPlaylist}/${id}/clear-playlist`);
     } catch (error) {
       console.error(error);
     }
@@ -80,8 +74,7 @@ export class PlaylistService {
 
   removeTrackFromPlaylist(playlistId: number, trackId: number): Observable<Playlist> {
     try {
-      return this.http.delete<Playlist>(`${ApiEndpoints.PlaylistEndpoints.rootPlaylist}
-     /${playlistId}/remove-track-from-playlist/${trackId}`);
+      return this.http.delete<Playlist>(`${ApiEndpoints.PlaylistEndpoints.rootPlaylist}/${playlistId}/remove-track-from-playlist/${trackId}`);
     } catch (error) {
       console.error(error);
     }

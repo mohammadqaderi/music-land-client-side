@@ -77,18 +77,16 @@ export class MusicService {
 
   pushToPlaylist(musicId: number, playlistId: number): Observable<Track> {
     try {
-      const url = `${ApiEndpoints.MusicEndpoints.allMusics}
-      /${musicId}/add-to-playlist/${playlistId}`;
+      const url = `${ApiEndpoints.MusicEndpoints.allMusics}/${musicId}/add-to-playlist/${playlistId}`;
       return this.http.post<Track>(url, null);
     } catch (error) {
       console.error(error);
     }
   }
 
-  pushToFavoriteList(musicId: number): Observable<Track> {
+  pushToFavoriteList(musicId: number, favoriteId: number): Observable<Track> {
     try {
-      const url = `${ApiEndpoints.MusicEndpoints.allMusics}
-      /${musicId}/save-to-favorite-list/${this.favService.favoriteList.getValue().id}`;
+      const url = `${ApiEndpoints.MusicEndpoints.allMusics}/${musicId}/save-to-favorite-list/${favoriteId}`;
       return this.http.post<Track>(url, null);
     } catch (error) {
       console.error(error);

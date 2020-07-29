@@ -26,14 +26,11 @@ export class ProfileComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.authService.profile.next(
-      JSON.parse(localStorage.getItem('profile'))
-    );
-    this.authService.profile
-      .subscribe((userProfile: Profile) => {
-        this.prepareUpdateForm(userProfile);
-        this.prepareProfile();
-      });
+    this.profileService.getUserProfile().subscribe((prof: Profile) => {
+      this.authService.profile.next(prof);
+      this.prepareUpdateForm(prof);
+      this.prepareProfile();
+    });
   }
 
   prepareProfile() {

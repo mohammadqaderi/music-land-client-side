@@ -32,13 +32,16 @@ export class FavoriteService {
     }
   }
 
-  removeTrackFavoriteList(favoriteId: number, trackId: number): Observable<Favorite>{
+  removeTrackFavoriteList(favoriteId: number, trackId: number): Observable<void>{
     try {
-      return this.http.delete
-        <Favorite>(`${ApiEndpoints.FavoriteListEndpoints.userFavoriteList}/${favoriteId}
-        /remove-track-from-favorite-list/${trackId}`);
+      return this.http.delete<void>
+        (`${ApiEndpoints.FavoriteListEndpoints.userFavoriteList}/${favoriteId}/remove-track-from-favorite-list/${trackId}`);
     } catch (error) {
       console.error(error);
     }
+  }
+
+  get FavoriteListId() {
+    return +localStorage.getItem('favoriteListId');
   }
 }

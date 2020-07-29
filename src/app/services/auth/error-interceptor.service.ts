@@ -3,8 +3,8 @@ import {HttpErrorResponse, HttpEvent, HttpHandler, HttpInterceptor, HttpRequest}
 import {Router} from "@angular/router";
 import {Observable, throwError} from "rxjs";
 import {catchError} from "rxjs/operators";
-import {MatSnackBar} from "@angular/material/snack-bar";
 import {AuthService} from "./auth.service";
+import {HelperService} from '../../Shared/services/helper.service';
 
 @Injectable({
   providedIn: 'root'
@@ -12,7 +12,7 @@ import {AuthService} from "./auth.service";
 export class ErrorInterceptorService implements HttpInterceptor {
 
   constructor(private authService: AuthService, private router: Router,
-              private snackBar: MatSnackBar) {
+              private helperService: HelperService) {
   }
 
   intercept(req: HttpRequest<any>, next: HttpHandler): Observable<HttpEvent<any>> {
@@ -21,13 +21,13 @@ export class ErrorInterceptorService implements HttpInterceptor {
         let error = null;
         if ([401].indexOf(err.status) !== -1) {
           // Unauthorized, we will redirect him to login page
-          this.openSnackbar('Login Session has expired', 'OK');
+          this.helperService.openSnackbar('Login Session has expired', 'OK');
           this.authService.userLogout();
           this.router.navigate(['/auth/login']);
         }
         else if ([403].indexOf(err.status) !== -1) {
           // Forbidden, we will redirect him to login page
-          this.openSnackbar('This Resource is forbidden', 'OK');
+          this.helperService.openSnackbar('This Resource is forbidden', 'OK');
           this.router.navigate(['/home'], {
             queryParams:{
               'Error-Status': err.status
@@ -54,9 +54,4 @@ export class ErrorInterceptorService implements HttpInterceptor {
     )
   }
 
-  openSnackbar(message: string, action: string) {
-    this.snackBar.open(message, action, {
-      duration: 2000
-    })
-  }
 }

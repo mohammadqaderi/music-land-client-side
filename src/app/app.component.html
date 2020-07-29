@@ -10,14 +10,14 @@
       <a class="nav-link text-white" mat-button routerLink="/singers/all-singers">
         Singers
       </a>
-      <a class="nav-link text-white" mat-button routerLink="/songs/all">
+      <a class="nav-link text-white" mat-button routerLink="/songs/all-songs">
         Songs
       </a>
 
       <a class="nav-link text-white" mat-button routerLink="/musicians/all-musicians">
         Musicians
       </a>
-      <a class="nav-link text-white" mat-button routerLink="/music/all">
+      <a class="nav-link text-white" mat-button routerLink="/musics/all-musics">
         Music
       </a>
     </div>
@@ -44,21 +44,13 @@
       <a *ngIf="authService.isLoggedIn()" class="nav-link" routerLink="/dashboard/favorite-list" mat-button>
         Favorite List <i class="material-icons">playlist_play</i>
       </a>
-      <a *ngIf="authService.isLoggedIn()" class="nav-link" [mat-menu-trigger-for]="playlistMenu" mat-button>
+      <a *ngIf="authService.isLoggedIn()" class="nav-link"
+         [mat-menu-trigger-for]="playlistMenu" mat-button>
         Playlists <i class="material-icons">playlist_play</i>
       </a>
       <mat-menu #playlistMenu>
         <button mat-menu-item routerLink="/playlists/user-playlists">
           <span>All Playlists</span>
-        </button>
-        <button mat-menu-item>
-          <span>Playlist1</span>
-        </button>
-        <button mat-menu-item>
-          <span>Playlist2</span>
-        </button>
-        <button mat-menu-item>
-          <span>Playlist3</span>
         </button>
       </mat-menu>
       <button *ngIf="authService.isLoggedIn()" mat-raised-button color="accent">
