@@ -1,0 +1,64 @@
+<div class="container mt-3">
+  <div class="row mb-2 justify-content-between" *ngIf="room">
+    <div class="col-md-6">
+      <h2 style="font-family: 'Anton', sans-serif"
+          class="text-center">
+        Room: {{room.name}}
+      </h2>
+    </div>
+    <div class="col-md-6">
+      <button class="btn btn-outline-danger" routerLink="/rooms/all-rooms"
+      >Leave Room
+      </button>
+    </div>
+  </div>
+  <div class="row mb-2 justify-content-center">
+    <div class="col-md-10">
+      <div class="card">
+        <div class="card-header text-center">
+          <h2 class="text-center">
+            You have joined as {{Nickname}}
+          </h2>
+        </div>
+        <div class="card-body scroll">
+          <div class="row" *ngFor="let message of messages">
+            <div class="col-md-4 text-white mb-1 bg-primary" *ngIf="message.sender === Nickname">
+              <h3 style="font-family: 'Anton', sans-serif">
+                {{message.sender}}
+              </h3>
+              <p class="lead">{{message.text}}</p>
+              <p class="text-muted">
+                {{message.created | date: 'short'}}
+              </p>
+            </div>
+
+            <div class="col-md-4 text-white mb-1 bg-danger offset-md-8"
+                 *ngIf="message.sender !== Nickname">
+              <h3 style="font-family: 'Anton', sans-serif">
+                {{message.sender}}
+              </h3>
+              <p class="lead">{{message.text}}</p>
+              <p class="text-muted">
+                {{message.created | date: 'short'}}
+              </p>
+            </div>
+          </div>
+        </div>
+        <div class="card-footer">
+          <div class="row">
+            <div class="col-md-8">
+              <textarea name="message" [(ngModel)]="message"
+                        class="form-control" placeholder="Message..."> </textarea>
+            </div>
+            <div class="col-md-4">
+              <button mat-raised-button color="primary"
+                      [disabled]="!message" (click)="sendMessage()">
+                Send
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,4 +1,3 @@
-
 const prefixRoute = 'http://localhost:3000';
 export const ApiEndpoints = {
   AuthEndpoints: {
@@ -57,5 +56,9 @@ export const ApiEndpoints = {
   },
   SingersAlbumsEndpoints: {
     allSingersAlbums: `${prefixRoute}/singers-albums`
+  },
+  RoomEndpoints: {
+    userRooms: `${prefixRoute}/rooms/user-rooms`,
+    rootRooms: `${prefixRoute}/rooms`
   }
 };

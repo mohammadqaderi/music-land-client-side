@@ -89,7 +89,6 @@ export class ProfileComponent implements OnInit {
 
   updateUserProfile() {
     this.helperService.showSpinner();
-    console.log(this.updateProfileDto.value);
     this.profileService.editUserProfile(this.updateProfileDto.value)
       .subscribe((updateProfile: Profile) => {
         console.log(updateProfile);

@@ -13,8 +13,6 @@ export class SubscribersNotifications  {
   vibrate: Array<number>;
 
 
-
-
   subscriberId: number;
 
   notificationId: number;

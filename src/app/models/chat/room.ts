@@ -1,6 +1,5 @@
-import { BaseEntity, Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
-import { Message } from './message.entity';
-import { UserJoinedRoom } from './user-joined-room.entity';
+import {Message} from './message';
+import {UserJoinedRoom} from './user-joined-room';
 
 export class Room  {
   id: number;
@@ -13,7 +12,6 @@ export class Room  {
 
 
   messages: Message[];
-
 
   userJoinedRooms: UserJoinedRoom[];
 }

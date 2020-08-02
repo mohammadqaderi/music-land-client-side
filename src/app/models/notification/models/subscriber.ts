@@ -1,5 +1,5 @@
 import { Key } from '../classes/key';
-import { SubscribersNotifications } from './subscribers-notifications.entity';
+import {SubscribersNotifications} from './subscribers-notification';
 export class Subscriber {
   id: number;
 

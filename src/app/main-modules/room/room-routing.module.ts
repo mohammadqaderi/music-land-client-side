@@ -1,28 +1,29 @@
 import {NgModule} from '@angular/core';
 import {RouterModule, Routes} from '@angular/router';
-import {AllMusicsComponent} from './all-musics/all-musics.component';
-import {MusicDetailsComponent} from './music-details/music-details.component';
+import {AllRoomsComponent} from './all-rooms/all-rooms.component';
+import {RoomDetailsComponent} from './room-details/room-details.component';
 
 const routes: Routes = [
   {
     path: '',
     children: [
       {
-        path: 'all-musics',
-        component: AllMusicsComponent
+        path: 'all-rooms',
+        component: AllRoomsComponent
       },
       {
         path: ':id',
-        component: MusicDetailsComponent
+        component: RoomDetailsComponent
       }
     ]
   }
 ];
+
 @NgModule({
   declarations: [],
   imports: [RouterModule.forChild(routes)],
   exports: [RouterModule]
 })
-export class MusicRoutingModule {
+export class RoomRoutingModule {
 
 }

@@ -1,0 +1,18 @@
+<ng-template #resourceNotFoundErrorTemp>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">
+      <i class="fa fa-exclamation-triangle" aria-hidden="true"> </i>
+      Resource Not Found!!
+    </h4>
+    <button aria-label="Close" class="close pull-left">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-center">
+    <div class="alert alert-danger" role="alert">
+      The resource that you're looking for does not found!!
+    </div>
+    <button class="btn btn-danger" (click)="helperService.hideModal()">Close</button>
+  </div>
+
+</ng-template>

@@ -35,14 +35,14 @@ export class ErrorInterceptorService implements HttpInterceptor {
           });
         }
         else if (err.status === 404) {
-          this.router.navigate(['/notFoundResource', err.status], {
+          this.router.navigate(['/resource-not-found', err.status], {
             queryParams: {
               'Error-Status': err.status
             }
           });
         }
         else if(err.status === 500){
-          this.router.navigate(['/applicationError', err.status], {
+          this.router.navigate(['/application-error', err.status], {
             queryParams: {
               'Error-Status': err.status
             }

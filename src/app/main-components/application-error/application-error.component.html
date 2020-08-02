@@ -1,0 +1,18 @@
+<ng-template #appErrorTemp>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">
+      <i class="fa fa-exclamation-triangle" aria-hidden="true"> </i>
+      Application Error!!
+    </h4>
+    <button aria-label="Close" class="close pull-left">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-center">
+    <div class="alert alert-danger" role="alert">
+      An error occurred on the application, please try later
+    </div>
+    <button class="btn btn-danger" (click)="helperService.hideModal()">Close</button>
+  </div>
+
+</ng-template>

@@ -35,7 +35,7 @@
           <span>Settings</span>
           <i class="fas fa-user-cog"></i>
         </button>
-        <button (click)="logout()" mat-menu-item routerLink="/dashboard/profile">
+        <button (click)=" logout()" mat-menu-item routerLink="/dashboard/profile">
           <span>Logout</span>
           <i class="fas fa-user"></i>
         </button>
@@ -53,10 +53,34 @@
           <span>All Playlists</span>
         </button>
       </mat-menu>
-      <button *ngIf="authService.isLoggedIn()" mat-raised-button color="accent">
+      <button (click)="helperService.openModal(chatTemplate)" *ngIf="authService.isLoggedIn()" mat-raised-button
+              color="accent">
         Join Chat Rooms
       </button>
-      <a *ngIf="authService.isLoggedIn()" mat-button style="font-size: 23px;">
+      <ng-template #chatTemplate>
+        <div class="modal-header">
+          <h4 class="modal-title pull-left">
+            Join Fans Chat Right Now
+          </h4>
+          <button aria-label="Close" class="close pull-left">
+            <span aria-hidden="true">&times;</span>
+          </button>
+        </div>
+        <div class="modal-body text-center">
+          <h1 style="font-family: 'Anton', sans-serif">
+            Join As <span class="text-primary">{{Username}}
+          </span>
+          </h1>
+          <div class="modal-footer">
+            <a (click)="helperService.hideModal()" class="btn btn-primary" routerLink="/rooms/all-rooms">
+              Continue
+            </a>
+            <button class="btn btn-danger pull-right" (click)="helperService.hideModal()">Close</button>
+          </div>
+        </div>
+
+      </ng-template>
+      <a  *ngIf="authService.isLoggedIn()" mat-button style="font-size: 23px;">
         <i style="font-size: 23px" class="far fa-bell" [matBadge]="5"
            matBadgeOverlap="false" matBadgePosition="above after"
            matBadgeSize="medium" matBadgeColor="warn">

@@ -5,6 +5,8 @@ import {HttpClient} from '@angular/common/http';
 import {Router} from '@angular/router';
 import {BehaviorSubject, Observable} from 'rxjs';
 import {ApiEndpoints} from '../../commons/api-endpoints';
+import {SubscribersNotifications} from '../../models/notification/models/subscribers-notification';
+import {Subscriber} from '../../models/notification/models/subscriber';
 
 @Injectable({
   providedIn: 'root'
@@ -14,6 +16,8 @@ export class AuthService {
   public username: string;
   public profile: BehaviorSubject<Profile> = new BehaviorSubject<Profile>(null);
   public currentUser: BehaviorSubject<User> = new BehaviorSubject<User>(null);
+  public subscriberNotifications: BehaviorSubject<SubscribersNotifications[]>
+    = new BehaviorSubject<SubscribersNotifications[]>([]);
 
   constructor(private http: HttpClient,
               private router: Router) {
@@ -32,14 +36,18 @@ export class AuthService {
   // user data
 
   prepareUserData() {
-      this.pUserData().subscribe((uData: any) => {
-        this.currentUser.next(uData.user);
-        this.profile.next(uData.profile);
+    this.pUserData().subscribe((uData: any) => {
+      this.currentUser.next(uData.user);
+      this.profile.next(uData.profile);
+      if (localStorage.length < 2) {
         localStorage.setItem('user', uData.user);
+        localStorage.setItem('userId', uData.user.id.toString());
         localStorage.setItem('favoriteListId', uData.favorite.id.toString());
         localStorage.setItem('username',
           `${uData.profile.firstName} ${uData.profile.lastName}`);
-      });
+        localStorage.setItem('nickname', uData.user.username);
+      }
+    });
   }
 
   pUserData() {
@@ -115,12 +123,14 @@ export class AuthService {
 
   isLoggedIn() {
     return localStorage.getItem('token') &&
-      localStorage.getItem('user');
+      localStorage.getItem('userId');
   }
 
   getToken() {
     return localStorage.getItem('token');
   }
+
+
 
   getUserById(id: number): Observable<User> {
     try {

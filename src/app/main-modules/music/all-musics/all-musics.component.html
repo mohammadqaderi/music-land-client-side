@@ -95,6 +95,9 @@
                             (click)="removeMusicFromFavoriteList(music)">
                        Remove From Favorite List
                     </button>
+                    <button mat-menu-item [routerLink]="['/musics/', music.id]">
+                      More Details
+                    </button>
                   </mat-menu>
                 </div>
               </mat-toolbar-row>

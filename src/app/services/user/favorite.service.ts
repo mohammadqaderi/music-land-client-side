@@ -25,8 +25,7 @@ export class FavoriteService {
   clearFavoriteListContent(id: number): Observable<Favorite>{
     try {
       return this.http.delete
-        <Favorite>(`${ApiEndpoints.FavoriteListEndpoints.userFavoriteList}/${id}
-        /clear-favorite-list`);
+        <Favorite>(`${ApiEndpoints.FavoriteListEndpoints.userFavoriteList}/${id}/clear-favorite-list`);
     } catch (error) {
       console.error(error);
     }

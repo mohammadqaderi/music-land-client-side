@@ -5,11 +5,12 @@ import {FormsModule, ReactiveFormsModule} from '@angular/forms';
 import {MusicRoutingModule} from './music-routing.module';
 import {SharedModule} from '../../Shared/shared.module';
 import {PipesModule} from '../../pipes/pipes.module';
+import { MusicDetailsComponent } from './music-details/music-details.component';
 
 
 
 @NgModule({
-  declarations: [AllMusicsComponent],
+  declarations: [AllMusicsComponent, MusicDetailsComponent],
   imports: [
     CommonModule,
     FormsModule,
