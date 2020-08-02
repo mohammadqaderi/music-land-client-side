@@ -15,6 +15,8 @@ import {environment} from '../environments/environment';
 import { PageNotFoundComponent } from './main-components/page-not-found/page-not-found.component';
 import { ResourceNotFoundComponent } from './main-components/resource-not-found/resource-not-found.component';
 import { ApplicationErrorComponent } from './main-components/application-error/application-error.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
+import {NotificationsComponent} from './main-components/notifications/notifications.component';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,8 @@ import { ApplicationErrorComponent } from './main-components/application-error/a
     HomeComponent,
     PageNotFoundComponent,
     ResourceNotFoundComponent,
-    ApplicationErrorComponent
+    ApplicationErrorComponent,
+    NotificationsComponent
   ],
   imports: [
     BrowserModule,
@@ -32,7 +35,8 @@ import { ApplicationErrorComponent } from './main-components/application-error/a
     SocketIoModule.forRoot(environment.socketIoConfig),
     HttpClientModule,
     FormsModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
   ],
   providers: [
     {

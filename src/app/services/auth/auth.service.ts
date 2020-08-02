@@ -131,7 +131,6 @@ export class AuthService {
   }
 
 
-
   getUserById(id: number): Observable<User> {
     try {
       return this.http.get<User>(`${ApiEndpoints.AuthEndpoints.users}/${id}`);
@@ -146,4 +145,23 @@ export class AuthService {
       !this.currentUser.getValue().isEmailVerified;
   }
 
+
+  // notifications methods
+
+  getSubscriberNotifications(): Observable<SubscribersNotifications[]> {
+    try {
+      return this.http.get<SubscribersNotifications[]>(ApiEndpoints.NotificationEndpoints.subscriberNotifications);
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  newSubscriber(subscriber: any): Observable<Subscriber> {
+    try {
+      return this.http.post<Subscriber>
+      (ApiEndpoints.NotificationEndpoints.newSubscriber, subscriber);
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }

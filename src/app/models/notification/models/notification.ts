@@ -1,3 +1,4 @@
+import {SubscribersNotifications} from './subscribers-notification';
 
 export class Notification  {
   id: number;

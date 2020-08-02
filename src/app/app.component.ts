@@ -35,5 +35,11 @@ export class AppComponent implements OnInit {
     return localStorage.getItem('username');
   }
 
+  get NotificationsCount(): number {
+    if (this.authService.isLoggedIn() && this.authService.subscriberNotifications.getValue()) {
+      return this.authService.subscriberNotifications.getValue().length;
+    }
+  }
+
 
 }

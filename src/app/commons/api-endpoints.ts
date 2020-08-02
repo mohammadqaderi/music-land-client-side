@@ -60,5 +60,14 @@ export const ApiEndpoints = {
   RoomEndpoints: {
     userRooms: `${prefixRoute}/rooms/user-rooms`,
     rootRooms: `${prefixRoute}/rooms`
+  },
+  vapidKeys: {
+    publicKey: 'BLpySO99jzI6h9LHBavAlH7rYkifZtx68A6YZFbfu14eWhP-RMPkzP13qWY82BGDsS6i_NFCS16-NlE1TnL9jc4',
+    privateKey: '7JvOwUHBIzOl7vH91umiMQqISDkY3EP9ym_NUsecW44'
+  },
+  NotificationEndpoints: {
+    subscribers: `${prefixRoute}/notifications/subscribers`,
+    subscriberNotifications: `${prefixRoute}/notifications/subscribers/subscriber-notifications`,
+    newSubscriber: `${prefixRoute}/notifications/subscribers/new`
   }
 };

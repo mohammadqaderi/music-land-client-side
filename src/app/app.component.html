@@ -35,7 +35,7 @@
           <span>Settings</span>
           <i class="fas fa-user-cog"></i>
         </button>
-        <button (click)=" logout()" mat-menu-item routerLink="/dashboard/profile">
+        <button (click)=" sidenav.close();logout()" mat-menu-item routerLink="/dashboard/profile">
           <span>Logout</span>
           <i class="fas fa-user"></i>
         </button>
@@ -80,8 +80,8 @@
         </div>
 
       </ng-template>
-      <a  *ngIf="authService.isLoggedIn()" mat-button style="font-size: 23px;">
-        <i style="font-size: 23px" class="far fa-bell" [matBadge]="5"
+      <a (click)="sidenav.toggle()" *ngIf="authService.isLoggedIn()" mat-button style="font-size: 23px;">
+        <i style="font-size: 23px" class="far fa-bell" [matBadge]="NotificationsCount"
            matBadgeOverlap="false" matBadgePosition="above after"
            matBadgeSize="medium" matBadgeColor="warn">
         </i>
@@ -100,6 +100,11 @@
 
 <ng-container>
   <mat-sidenav-container class="example-container">
+    <mat-sidenav #sidenav mode="side"
+                 class="example-sidenav justify-content-center text-center"
+                 [fixedInViewport]="false">
+      <app-notifications *ngIf="authService.isLoggedIn()"></app-notifications>
+    </mat-sidenav>
     <mat-sidenav-content>
       <router-outlet></router-outlet>
     </mat-sidenav-content>

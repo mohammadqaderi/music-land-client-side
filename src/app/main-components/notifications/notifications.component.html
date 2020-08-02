@@ -1,0 +1,49 @@
+<div class="row m-2 p-2" *ngIf="subscriberNotifications">
+  <div class="col-md-12" *ngIf="subscriberNotifications.length >= 1">
+    <h5 style="font-family: 'Anton', sans-serif">
+      Current Notifications
+    </h5>
+    <mat-divider class="mt-1 mb-1"></mat-divider>
+    <div class="scroll" *ngFor="let notification of subscriberNotifications">
+      <div class="card mt-1 mb-1">
+        <div class="card-header">
+          <h4 style="font-family: 'Anton', sans-serif">
+            {{notification.title}}
+          </h4>
+        </div>
+        <div class="card-body">
+          <p class="lead ">
+            {{notification.body}}
+          </p>
+        </div>
+        <div class="card-footer">
+          <p class="text-muted">
+            {{notification.data.dateOfArrival | date: 'short'}}
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="col-md-12" *ngIf="subscriberNotifications.length < 1">
+    <h5 style="font-family: 'Anton', sans-serif">
+      There are not notifications for you until now!
+    </h5>
+  </div>
+</div>
+
+<div class="row m-2 p-2" *ngIf="notSubscriber">
+  <div class="col-md-12">
+    <h4 style="font-family: 'Anton', sans-serif">
+      You have not subscribe to our newsletter!,,
+      you need to subscribe to our newsletter then you will get the notifications
+    </h4>
+    <mat-divider class="mt-1 mb-1"></mat-divider>
+    <h5>
+      Click here to subscribe to our newsletter
+      <button (click)="subscribeToNotifications()" class="mt-1 btn btn-success" [disabled]="subscriber">
+        Subscribe
+      </button>
+    </h5>
+  </div>
+</div>
