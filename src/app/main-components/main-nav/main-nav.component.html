@@ -1,0 +1,204 @@
+<mat-sidenav-container class="sidenav-container">
+  <mat-sidenav #drawer class="sidenav" fixedInViewport
+               [attr.role]="(isHandset$ | async) ? 'dialog' : 'navigation'"
+               [mode]="(isHandset$ | async) ? 'over' : 'push'"
+  >
+    <mat-toolbar>Menu</mat-toolbar>
+    <div class="row justify-content-between m-2 p-2">
+      <div class="col-md-6 ">
+        <a class="nav-link " routerLink="/singers/all-singers">
+          Singers
+        </a>
+        <a class="nav-link " routerLink="/songs/all-songs">
+          Songs
+        </a>
+        <a class="nav-link " routerLink="/musicians/all-musicians">
+          Musicians
+        </a>
+        <a class="nav-link " routerLink="/musics/all-musics">
+          Music
+        </a>
+      </div>
+      
+      <mat-divider class="mt-2 mb-2"></mat-divider>
+      <div class="col-md-6 ">
+        <a *ngIf="authService.isLoggedIn()" [mat-menu-trigger-for]="userMenu">
+          {{Username}}
+        </a>
+        <mat-menu #userMenu>
+          <button mat-menu-item routerLink="/dashboard/profile">
+            <span>Profile</span>
+            <i class="fas fa-user"></i>
+          </button>
+          <button mat-menu-item routerLink="/dashboard/settings">
+            <span>Settings</span>
+            <i class="fas fa-user-cog"></i>
+          </button>
+          <button (click)="sidenav.close();logout()" mat-menu-item routerLink="/dashboard/profile">
+            <span>Logout</span>
+            <i class="fas fa-user"></i>
+          </button>
+        </mat-menu>
+
+        <a *ngIf="authService.isLoggedIn()" class="nav-link" routerLink="/dashboard/favorite-list">
+          Favorite List <i class="material-icons">playlist_play</i>
+        </a>
+        <a *ngIf="authService.isLoggedIn()" class="nav-link"
+           [mat-menu-trigger-for]="playlistMenu">
+          Playlists <i class="material-icons">playlist_play</i>
+        </a>
+        <mat-menu #playlistMenu>
+          <button mat-menu-item routerLink="/playlists/user-playlists">
+            <span>All Playlists</span>
+          </button>
+        </mat-menu>
+        <button (click)="helperService.openModal(chatTemplate)" *ngIf="authService.isLoggedIn()" mat-raised-button
+                color="accent">
+          Join Chat Rooms
+        </button>
+
+        <a class="nav-link" (click)="sidenav.toggle()" *ngIf="authService.isLoggedIn()" style="font-size: 23px;">
+          <i style="font-size: 23px" class="far fa-bell" [matBadge]="NotificationsCount.toString()"
+             matBadgeOverlap="false" matBadgePosition="above after"
+             matBadgeSize="medium" matBadgeColor="warn">
+          </i>
+        </a>
+        <a *ngIf="!authService.isLoggedIn()" class="nav-link" routerLink="/auth/login" routerLinkActive="active"
+        >
+          Login <i class="fas fa-sign-in-alt"></i>
+        </a>
+        <a *ngIf="!authService.isLoggedIn()" class="nav-link" routerLink="/auth/register" routerLinkActive="active"
+        >
+          Register <i class="far fa-user-circle"></i>
+        </a>
+      </div>
+
+
+    </div>
+  </mat-sidenav>
+  <mat-sidenav-content>
+    <mat-toolbar color="primary">
+      <mat-toolbar-row>
+        <button
+          type="button"
+          aria-label="Toggle sidenav"
+          mat-icon-button
+          (click)="drawer.toggle()"
+          *ngIf="isHandset$ | async">
+          <mat-icon aria-label="Side nav toggle icon">menu</mat-icon>
+        </button>
+        <a class="nav-link text-white" mat-button routerLink="/">
+          Music Land
+        </a>
+        <div class="col-md-6" *ngIf="(isHandset$ | async) === false">
+          <a mat-button routerLink="/singers/all-singers">
+            Singers
+          </a>
+          <a mat-button routerLink="/songs/all-songs">
+            Songs
+          </a>
+          <a mat-button routerLink="/musicians/all-musicians">
+            Musicians
+          </a>
+          <a mat-button routerLink="/musics/all-musics">
+            Music
+          </a>
+        </div>
+        <span class="example-spacer"></span>
+        <div class="col-md-6 " *ngIf="(isHandset$ | async) === false">
+          <a mat-button *ngIf="authService.isLoggedIn()" [mat-menu-trigger-for]="userMenu">
+            {{Username}}
+          </a>
+          <mat-menu #userMenu>
+            <button mat-menu-item routerLink="/dashboard/profile">
+              <span>Profile</span>
+              <i class="fas fa-user"></i>
+            </button>
+            <button mat-menu-item routerLink="/dashboard/settings">
+              <span>Settings</span>
+              <i class="fas fa-user-cog"></i>
+            </button>
+            <button (click)="sidenav.close();logout()" mat-menu-item routerLink="/dashboard/profile">
+              <span>Logout</span>
+              <i class="fas fa-user"></i>
+            </button>
+          </mat-menu>
+
+          <a *ngIf="authService.isLoggedIn()" mat-button routerLink="/dashboard/favorite-list">
+            Favorite List <i class="material-icons">playlist_play</i>
+          </a>
+          <a *ngIf="authService.isLoggedIn()" mat-button
+             [mat-menu-trigger-for]="playlistMenu">
+            Playlists <i class="material-icons">playlist_play</i>
+          </a>
+          <mat-menu #playlistMenu>
+            <button mat-menu-item routerLink="/playlists/user-playlists">
+              <span>All Playlists</span>
+            </button>
+          </mat-menu>
+          <button (click)="helperService.openModal(chatTemplate)" *ngIf="authService.isLoggedIn()" mat-raised-button
+                  color="accent">
+            Join Chat Rooms
+          </button>
+
+          <a mat-button (click)="sidenav.toggle()" *ngIf="authService.isLoggedIn()" style="font-size: 23px;">
+            <i style="font-size: 23px" class="far fa-bell" [matBadge]="NotificationsCount.toString()"
+               matBadgeOverlap="false" matBadgePosition="above after"
+               matBadgeSize="medium" matBadgeColor="warn">
+            </i>
+          </a>
+          <a *ngIf="!authService.isLoggedIn()" mat-button routerLink="/auth/login" routerLinkActive="active"
+          >
+            Login <i class="fas fa-sign-in-alt"></i>
+          </a>
+          <a *ngIf="!authService.isLoggedIn()" mat-button routerLink="/auth/register" routerLinkActive="active"
+          >
+            Register <i class="far fa-user-circle"></i>
+          </a>
+        </div>
+      </mat-toolbar-row>
+    </mat-toolbar>
+    <ng-container>
+      <mat-sidenav-container class="example-container">
+        <mat-sidenav #sidenav mode="side"
+                     class="example-sidenav justify-content-center text-center"
+                     [fixedInViewport]="false">
+
+          <app-notifications [sidenav]="sidenav" *ngIf="authService.isLoggedIn()"></app-notifications>
+        </mat-sidenav>
+        <mat-sidenav-content>
+          <router-outlet>
+
+          </router-outlet>
+        </mat-sidenav-content>
+      </mat-sidenav-container>
+    </ng-container>
+
+
+  </mat-sidenav-content>
+
+</mat-sidenav-container>
+<ng-template #chatTemplate>
+  <div class="modal-header">
+    <h4 class="modal-title pull-left">
+      Join Fans Chat Right Now
+    </h4>
+    <button aria-label="Close" class="close pull-left">
+      <span aria-hidden="true">&times;</span>
+    </button>
+  </div>
+  <div class="modal-body text-center">
+    <h1 style="font-family: 'Anton', sans-serif">
+      Join As <span class="text-primary">{{Username}}
+          </span>
+    </h1>
+  </div>
+  <div class="modal-footer">
+    <a (click)="helperService.hideModal()" class="btn btn-primary" routerLink="/rooms/all-rooms">
+      Continue
+    </a>
+    <button class="btn btn-danger pull-right" (click)="helperService.hideModal()">Close</button>
+  </div>
+</ng-template>
+
+

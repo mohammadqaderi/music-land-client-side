@@ -16,7 +16,7 @@ mat-sidenav-content {
   background: linear-gradient(to right, #DBD65C, #5614B0); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
 }
 .example-container {
-  position: absolute;
+  position: relative;
   top: 0px;
   bottom: 0px;
   left: 0;
@@ -25,6 +25,7 @@ mat-sidenav-content {
 
 .example-sidenav {
   display: flex;
+  margin-top: 0;
   align-items: center;
   justify-content: center;
   width: 250px;

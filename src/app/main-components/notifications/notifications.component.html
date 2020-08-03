@@ -1,5 +1,11 @@
+<div class="row justify-content-center mt-1 mb-1">
+  <button (click)="sidenav.close()" style="width: auto" class="btn text-center btn-danger">
+    Hide Panel
+  </button>
+</div>
 <div class="row m-2 p-2" *ngIf="subscriberNotifications">
   <div class="col-md-12" *ngIf="subscriberNotifications.length >= 1">
+
     <h5 style="font-family: 'Anton', sans-serif">
       Current Notifications
     </h5>

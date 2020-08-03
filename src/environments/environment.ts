@@ -3,9 +3,9 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false,
+  production: true,
   socketIoConfig: {
-    url: 'localhost:3000'
+    url: 'https://music-land-api.herokuapp.com'
   }
 };
 

@@ -2,7 +2,7 @@
   <mat-sidenav-container
     class="example-container">
     <mat-sidenav #sidenav mode="side"
-                 opened class="example-sidenav justify-content-center text-center"
+                 class="example-sidenav justify-content-center text-center"
                  [fixedInViewport]="false">
       <div class="row mt-2 justify-content-center text-center mb-2">
         <button (click)="sidenav.close()"
@@ -92,7 +92,7 @@
                     <button mat-menu-item [matMenuTriggerFor]="playlistMenu">
                       Add To Playlist
                     </button>
-                    <mat-menu #playlistMenu>
+                    <mat-menu #playlistMenu >
                       <div *ngFor="let list of getUserPlaylists()">
                         <button mat-menu-item
                                 *ngIf="!isSongAddedToPlaylist(song,list.id)"

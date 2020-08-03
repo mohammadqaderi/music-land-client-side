@@ -12,11 +12,13 @@ import {CookieService} from 'ngx-cookie-service';
 import {HomeComponent} from './main-components/home/home.component';
 import {SocketIoModule} from 'ngx-socket-io';
 import {environment} from '../environments/environment';
-import { PageNotFoundComponent } from './main-components/page-not-found/page-not-found.component';
-import { ResourceNotFoundComponent } from './main-components/resource-not-found/resource-not-found.component';
-import { ApplicationErrorComponent } from './main-components/application-error/application-error.component';
-import { ServiceWorkerModule } from '@angular/service-worker';
+import {PageNotFoundComponent} from './main-components/page-not-found/page-not-found.component';
+import {ResourceNotFoundComponent} from './main-components/resource-not-found/resource-not-found.component';
+import {ApplicationErrorComponent} from './main-components/application-error/application-error.component';
+import {ServiceWorkerModule} from '@angular/service-worker';
 import {NotificationsComponent} from './main-components/notifications/notifications.component';
+import {MainNavComponent} from './main-components/main-nav/main-nav.component';
+
 
 @NgModule({
   declarations: [
@@ -25,7 +27,8 @@ import {NotificationsComponent} from './main-components/notifications/notificati
     PageNotFoundComponent,
     ResourceNotFoundComponent,
     ApplicationErrorComponent,
-    NotificationsComponent
+    NotificationsComponent,
+    MainNavComponent
   ],
   imports: [
     BrowserModule,
@@ -36,7 +39,7 @@ import {NotificationsComponent} from './main-components/notifications/notificati
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production })
+    ServiceWorkerModule.register('ngsw-worker.js', {enabled: environment.production}),
   ],
   providers: [
     {

@@ -47,7 +47,7 @@ import {DragDropModule} from "@angular/cdk/drag-drop";
 import {MatBottomSheetModule} from "@angular/material/bottom-sheet";
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatDividerModule} from "@angular/material/divider";
-
+import { LayoutModule } from '@angular/cdk/layout';
 
 const materialModules = [
   MatButtonModule,
@@ -93,6 +93,7 @@ const materialModules = [
   MatButtonModule,
   MatButtonToggleModule,
   MatCardModule,
+  LayoutModule,
   MatCheckboxModule,
   MatChipsModule,
   MatStepperModule,

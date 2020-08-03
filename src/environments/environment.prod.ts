@@ -1,6 +1,6 @@
 export const environment = {
   production: true,
   socketIoConfig: {
-    url: 'localhost:3000'
+    url: 'https://music-land-api.herokuapp.com'
   }
 };

@@ -7,7 +7,6 @@ import {MusicFilter} from '../../../Shared/classes/music-filter';
 import {MusicService} from '../../../services/media/music.service';
 import {FavoriteService} from '../../../services/user/favorite.service';
 import {Track} from '../../../models/media/track';
-import {Song} from '../../../models/media/song';
 import {PlaylistService} from '../../../services/user/playlist.service';
 import {Playlist} from '../../../models/media/playlist';
 
@@ -123,7 +122,9 @@ export class AllMusicsComponent implements OnInit {
       });
   }
   getUserPlaylists(): Playlist[] {
-    return this.playlistService.getCurrentPlaylists();
+;    if(this.authService.isLoggedIn()){
+      return this.playlistService.getCurrentPlaylists();
+    }
   }
 
 }

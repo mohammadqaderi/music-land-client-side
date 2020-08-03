@@ -64,6 +64,7 @@ export class AllSongsComponent implements OnInit {
           .openSnackbar(`An error occurred please try later`, 'Okay');
       });
   }
+
   addSongToPlaylist(song: Song, playlist: Playlist) {
     this.songService.pushToPlaylist(song.id, playlist.id)
       .subscribe((track: Track) => {
@@ -79,9 +80,9 @@ export class AllSongsComponent implements OnInit {
   isSongAddedToFavoriteList(song: Song): boolean {
     return song.tracks.some(track => track.favoriteId === this.favService.FavoriteListId);
   }
+
   isSongAddedToPlaylist(song: Song, playlistId: number): boolean {
-    return song.tracks.
-    some(track => track.playlistId === playlistId);
+    return song.tracks.some(track => track.playlistId === playlistId);
   }
 
   removeSongFromFavoriteList(song: Song) {
@@ -96,6 +97,7 @@ export class AllSongsComponent implements OnInit {
       }
     }
   }
+
   removeSongFromPlaylist(song: Song, playlistId: number) {
     for (let i = 0; i < song.tracks.length; i++) {
       if (song.tracks[i].favoriteId === playlistId) {

@@ -11,9 +11,11 @@ import {ApiEndpoints} from '../../commons/api-endpoints';
 export class PlaylistService {
   public playlists: BehaviorSubject<Playlist[]> = new BehaviorSubject<Playlist[]>(null);
   constructor(private http: HttpClient, private authService: AuthService) {
-    this.getAllUserPlaylists().subscribe((userPlaylists: Playlist[]) =>{
-      this.playlists.next(userPlaylists);
-    })
+    if(authService.isLoggedIn()){
+      this.getAllUserPlaylists().subscribe((userPlaylists: Playlist[]) =>{
+        this.playlists.next(userPlaylists);
+      })
+    }
   }
 
   getAllUserPlaylists(): Observable<Playlist[]> {

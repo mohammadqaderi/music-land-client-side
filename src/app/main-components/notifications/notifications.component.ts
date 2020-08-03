@@ -1,10 +1,11 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {SubscribersNotifications} from '../../models/notification/models/subscribers-notification';
 import {AuthService} from '../../services/auth/auth.service';
 import {HelperService} from '../../Shared/services/helper.service';
 import {SwPush} from '@angular/service-worker';
 import {ApiEndpoints} from '../../commons/api-endpoints';
 import {Subscriber} from '../../models/notification/models/subscriber';
+import {MatSidenav} from '@angular/material/sidenav';
 
 @Component({
   selector: 'app-notifications',
@@ -13,6 +14,7 @@ import {Subscriber} from '../../models/notification/models/subscriber';
 })
 export class NotificationsComponent implements OnInit {
 
+  @Input() sidenav: MatSidenav;
   subscriberNotifications: SubscribersNotifications[];
   notSubscriber: boolean;
   subscriber: PushSubscription;
